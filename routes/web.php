@@ -19,17 +19,18 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('send-email', function () {
+Route::get('create-email-form', function () {
     return view('createEmails');
 });
 
-Route::get('text-email', function () {
+Route::get('type-message', function () {
     return view('sendEmail');
 });
 
-Route::get('send','Api\MailController@send');
+// ============= Controller Routes ============= //
 
 Route::post('create-email','Api\EmailsController@create');
+Route::post('send-mail','Api\EmailsController@sendMails');
 Route::get('show-emails','Api\EmailsController@show');
 
 
