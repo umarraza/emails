@@ -95,11 +95,11 @@ class EmailsController extends Controller
             $emailMessage->save();
         }
 
-        $mails = Emails::all();
+        $listMails = Emails::all();
 
         $emails = [];
 
-        foreach ($mails as $value) {
+        foreach ($listMails as $value) {
 
             $emails[] = $value->email;
 
