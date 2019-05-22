@@ -74,6 +74,24 @@ class EmailsController extends Controller
 
     public function sendMails(Request $request) {
 
+        $rules = [
+            'body'   =>  'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($rules);
+        } else {
+            
+            $emailMessage = Messages::create([
+    
+                'body'   =>  $request->body,
+    
+            ]);
+            
+            $emailMessage->save();
+        }
+        
         $emails = Emails::all();
 
         $message = $request->body;
