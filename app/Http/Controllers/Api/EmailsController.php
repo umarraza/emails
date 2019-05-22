@@ -16,6 +16,7 @@ class EmailsController extends Controller
 
     public function create(Request $request) 
     {
+
         $rules = [
             'email'   =>  'required|unique:emails',
         ];
@@ -25,17 +26,17 @@ class EmailsController extends Controller
             return redirect()->back()->withErrors($rules);
         } else {
             
-            $email = Emails::create([
+                $email = Emails::create([
     
-                'email'   =>  $request->email,
-    
-            ]);
-            
-            if ($email->save()) {
-    
-                return redirect('show-emails');
-    
-            }
+                    'email'   =>  $request->email,
+        
+                ]);
+                
+                if ($email->save()) {
+        
+                    return redirect('show-emails');
+        
+                }
         }
     }
 
@@ -77,7 +78,7 @@ class EmailsController extends Controller
 
         $message = $request->body;
         $data = json_encode($message);
-        
+
         if (!empty($request->body)){
             foreach ($emails as $user) {
 

@@ -6,7 +6,7 @@
       {{ csrf_field() }}
         <div class="form-group">
             <label for="exampleInputEmail1">Add Email</label>
-            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
         </div>
         <button type="submit" id="insert" class="btn btn-primary">Add</button>
         <a href="{{ url('show-emails') }}" type="button" class="btn btn-danger">Show Emails</a>
