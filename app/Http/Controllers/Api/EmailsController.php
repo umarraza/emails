@@ -10,6 +10,7 @@ use App\Models\Messages;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class EmailsController extends Controller
 {
@@ -71,7 +72,6 @@ class EmailsController extends Controller
         }
     }
 
-
     public function sendMails(Request $request) {
 
         $rules = [
@@ -79,8 +79,11 @@ class EmailsController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
+
         if($validator->fails()){
+
             return redirect()->back()->withErrors($rules);
+
         } else {
             
             $emailMessage = Messages::create([
@@ -91,30 +94,39 @@ class EmailsController extends Controller
             
             $emailMessage->save();
         }
-        
-        $emails = Emails::all();
 
-        $message = $request->body;
-        $data = json_encode($message);
+        $mails = Emails::all();
 
-        if (!empty($request->body)){
-            foreach ($emails as $user) {
+        $emails = [];
 
-                $username = $user->email;
-                $tousername = $username;
-    
-                \Mail::send('mail',["data"=>$data], function ($message) use ($tousername) {
-                    $message->from('umarraza2200@gmail.com', 'password');
-                    $message->to($tousername)->subject('Test Mails');
-               });
-    
-            }
-        }else{
+        foreach ($mails as $value) {
 
-            return "Warning! Please Type your message.";
+            $emails[] = $value->email;
+
         }
 
+        $emailMessage = $request->body;
+
+        Mail::send('mail', ['emailMessage' => $emailMessage], function ($message) use ($request, $emails)
+        {
+            $message->from('no-reply@yourdomain.com', 'Joe Smoe');
+            $message->to( $emails);
+            $message->subject("New Email From Your site");
+
+        });
+
         return "Emails Send successfully!";
+    }
+
+    public function delete($id){
+
+        $email = Emails::find($id);
+
+        if ($email->delete()){
+
+            return redirect('show-emails');
+
+        }
     }
 }
 

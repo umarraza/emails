@@ -12,11 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function () {
-    return view('home');
+    return view('createEmails');
 });
 
 Route::get('create-email-form', function () {
@@ -32,5 +28,7 @@ Route::get('type-message', function () {
 Route::post('create-email','Api\EmailsController@create');
 Route::post('send-mail','Api\EmailsController@sendMails');
 Route::get('show-emails','Api\EmailsController@show');
+Route::get('delete-email/{id}','Api\EmailsController@delete');
+
 
 

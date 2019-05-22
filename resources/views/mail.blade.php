@@ -17,7 +17,7 @@
     <body>
     <div class="jumbotron">
         <h1 class="display-4">A New Message!</h1>
-        <p class="lead">{{$data}}</p>
+        <p class="lead">{{$emailMessage}}</p>
         <hr class="my-4">
         </div>
     </body>
